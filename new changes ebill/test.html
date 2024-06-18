@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #020410;
+            color: white;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .background {
+            background: url('background.jpg') no-repeat center center/cover;
+            filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            background: transparent;
+            z-index: 100;
+        }
+        .navbar a {
+            font-size: 16px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            margin-right: 30px;
+            position: relative;
+        }
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: white;
+            border-radius: 5px;
+            bottom: -6px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        .navbar a:hover::after {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .search-box {
+            display: flex;
+            border: 2px solid white;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 10px;
+            width: 100%;
+        }
+        .search-box input::placeholder {
+            color: white;
+        }
+        .search-box button {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 0 10px;
+        }
+        .container {
+            background: url('background.jpg') no-repeat center center/cover;
+            border-radius: 10px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 1;
+        }
+        .form-container {
+            backdrop-filter: blur(20px);
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .form-box .input-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .form-box .input-box input {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid white;
+            width: 100%;
+            color: white;
+            padding-right: 30px;
+        }
+        .form-box .input-box label {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            pointer-events: none;
+            transition: .5s ease;
+            font-size: 16px;
+        }
+        .form-box .input-box input:focus ~ label,
+        .form-box .input-box input:valid ~ label {
+            top: -5px;
+        }
+        .form-box .input-box .icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+        }
+        .btn {
+            width: 100%;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <header class="header">
+        <nav class="navbar">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+        <form class="search-box">
+            <input type="text" placeholder="Search...">
+            <button type="submit"><i class='bx bx-search'></i></button>
+        </form>
+    </header>
+    <div class="container text-center">
+        <h1 class="mb-3">ClearBill</h1>
+        <h2 class="mb-3">Welcome!<br><span>To Our New Online Billing Platform</span></h2>
+        <p class="mb-3">ClearBill, the future of hassle-free billing! Say goodbye to the days of paper clutter and missed payments.</p>
+        <div class="d-flex justify-content-center mb-3">
+            <a href="#" class="me-2"><i class='bx bxl-meta'></i></a>
+            <a href="#" class="me-2"><i class='bx bxl-instagram'></i></a>
+            <a href="#"><i class='bx bxl-gmail'></i></a>
+        </div>
+        <div class="form-container bg-dark">
+            <div class="form-box login">
+                <form>
+                    <h2 class="mb-3">Sign In</h2>
+                    <div class="input-box">
+                        <input type="email" required>
+                        <label>Email</label>
+                        <span class="icon"><i class='bx bxs-envelope'></i></span>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" required>
+                        <label>Password</label>
+                        <span class="icon"><i class='bx bxs-lock-alt'></i></span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <label><input type="checkbox"> Remember me</label>
+                        <a href="#" class="text-decoration-none text-white">Forgot Password</a>
+                    </div>
+                    <button type="submit" class="btn mb-3">Sign In</button>
+                    <p>Don't have an account? <a href="#" class="register-link text-decoration-none text-white">Sign Up</a></p>
+                </form>
+            </div>
+            <div class="form-box register d-none">
+                <form>
+                    <h2 class="mb-3">Sign Up</h2>
+                    <div class="input-box">
+                        <input type="text" required>
+                        <label>Name</label>
+                        <span class="icon"><i class='bx bxs-user'></i></span>
+                    </div>
+                    <div class="input-box">
+                        <input type="email" required>
+                        <label>Email</label>
+                        <span class="icon"><i class='bx bxs-envelope'></i></span>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" required>
+                        <label>Password</label>
+                        <span class="icon"><i class='bx bxs-lock-alt'></i></span>
+                    </div>
+                    <div class="mb-3">
+                        <label><input type="checkbox"> I agree to the terms & conditions</label>
+                    </div>
+                    <button type="submit" class="btn mb-3">Sign Up</button>
+                    <p>Already have an account? <a href="#" class="login-link text-decoration-none text-white">Sign In</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.register-link').click(function(e) {
+                e.preventDefault();
+                $('.login').addClass('d-none');
+                $('.register').removeClass('d-none');
+            });
+            $('.login-link').click(function(e) {
+                e.preventDefault();
+                $('.register').addClass('d-none');
+                $('.login').removeClass('d-none');
+            });
+        });
+    </script>
+</body>
+</html>

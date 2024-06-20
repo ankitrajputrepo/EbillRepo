@@ -24,7 +24,7 @@
 
  <section class="bg-light p-3 mb-1">
 <div class="col-md-9">
-<form action="" method="">
+<form action="#" method="post" id="billform">
 
 
  
@@ -72,7 +72,7 @@
 <br>
 <label for="name">Card number</label>
 <br>
-<input id="name" name="name" type="text" class="form-control">
+<input id="cardno" name="name" type="text" class="form-control">
 <div class="d-flex flex-row form-group row">
      <div class="col-md-5">
 
@@ -127,6 +127,46 @@
 
 
 
+  <script>
+
+document.getElementById('billform').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+          
+        
+            const cardno = document.getElementById('cardno').value;
+           
+            const amount = document.getElementById('amount').value;
+            
+            
+            
+             const date=new Date();
+
+
+
+
+
+
+
+            const transactions = JSON.parse(localStorage.getItem('transaction')) || [];
+            transactions.push({ id: transactions.length, name,cardno,amount,date});
+            localStorage.setItem('transaction', JSON.stringify(transactions));
+            alert('Transaction successful!');
+         
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
 
 
 

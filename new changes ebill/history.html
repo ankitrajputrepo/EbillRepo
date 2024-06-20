@@ -23,11 +23,12 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Payment Method</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Location</th>
+                      
+                      
+                        <th>Card Number</th>
+                      
                         <th>Amount</th>
+                        <th>Date</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -59,28 +60,33 @@
 
 <!-- Custom JavaScript -->
 <script>
-    let users = JSON.parse(localStorage.getItem('transaction')) || [];
+    let trans= JSON.parse(localStorage.getItem('transactions')) || [];
 
     function populateUsersTable() {
         const tbody = document.getElementById("userTableBody");
         tbody.innerHTML = "";
-
+        const deleteButtons = document.querySelectorAll('.btn-delete');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', handleDeleteUser);
+    });
         // Calculate pagination parameters
         const startIndex = (currentPage - 1) * usersPerPage;
         const endIndex = startIndex + usersPerPage;
-        const usersToShow = users.slice(startIndex, endIndex);
+        const usersToShow = trans.slice(startIndex, endIndex);
 
         // Populate the table with users for the current page
         usersToShow.forEach(user => {
             const tr = document.createElement("tr");
-            tr.innerHTML = `
+            tr.innerHTML = `s
                 <td>${user.id}</td>
                 <td>${user.name}</td>
-                <td>${user.paymentmethod}</td>
-                <td>${user.email}</td>
-                <td>${user.phone}</td>
-                <td>${user.location}</td>
+             
+                <td>${user.cardno}</td>
+             
                 <td>${user.amount}</td>
+                  <td>${user.date}</td>
+                
+                
                 <td>
                     <button class="btn btn-sm btn-info btn-edit" data-id="${user.id}">Edit</button>
                     <button class="btn btn-sm btn-danger btn-delete" data-id="${user.id}">Delete</button>
@@ -92,6 +98,12 @@
         // Update pagination links
         updatePagination();
     }
+    function handleDeleteUser(event) {
+    const userId = event.target.getAttribute('data-id');
+    trans = trans.filter(user => user.id !== userId);
+    localStorage.setItem('transactions', JSON.stringify(trans));
+    populateUsersTable();
+}
 
     function updatePagination() {
         const totalPages = Math.ceil(users.length / usersPerPage);
@@ -159,10 +171,10 @@
 
     function downloadCSV() {
         const csvRows = [
-            ['ID', 'Name', 'Payment Method', 'Email', 'Phone', 'Location', 'Amount']
+            ['ID', 'Name','Card_Number','Amount','Date']
         ];
-        users.forEach(user => {
-            csvRows.push([user.id, user.name, user.paymentmethod, user.email, user.phone, user.location, user.amount]);
+        trans.forEach(user => {
+            csvRows.push([user.id, user.name,user.cardno,user.amount,user.date]);
         });
 
         let csvContent = "data:text/csv;charset=utf-8," 
@@ -171,7 +183,7 @@
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement("a");
         link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "users.csv");
+        link.setAttribute("download", "trans.csv");
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

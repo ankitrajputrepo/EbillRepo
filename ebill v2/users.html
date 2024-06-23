@@ -57,7 +57,7 @@
               <li><a href="connection.html">Connections request</a></li>
             </ul>
           </li>
-          <li><a href="#contact">Contact</a></li>
+       
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -185,7 +185,7 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
-    let trans = JSON.parse(localStorage.getItem('users')) || [];
+    let users = JSON.parse(localStorage.getItem('users')) || [];
 
     function populateUsersTable() {
       const tbody = document.getElementById("userTableBody");
@@ -194,23 +194,23 @@
       // Calculate pagination parameters
       const startIndex = (currentPage - 1) * usersPerPage;
       const endIndex = startIndex + usersPerPage;
-      const usersToShow = trans.slice(startIndex, endIndex);
+      const usersToShow = users.slice(startIndex, endIndex);
 
       // Populate the table with users for the current page
       usersToShow.forEach(user => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
+        const users = document.createElement("tr");
+        users.innerHTML = `
           <td>${user.id}</td>
           <td>${user.name}</td>
-          <td>${user.cardno}</td>
-          <td>${user.amount}</td>
+          <td>${user.email}</td>
+          <td>${user.password}</td>
           <td>${user.date}</td>
           <td>
             <button class="btn btn-sm btn-info btn-edit" data-id="${user.id}">Edit</button>
             <button class="btn btn-sm btn-danger btn-delete" data-id="${user.id}">Delete</button>
           </td>
         `;
-        tbody.appendChild(tr);
+        tbody.appendChild(users);
       });
 
       // Add event listeners for delete buttons
@@ -225,13 +225,13 @@
 
     function handleDeleteUser(event) {
       const userId = event.target.getAttribute('data-id');
-      trans = trans.filter(user => user.id !== userId);
-      localStorage.setItem('users', JSON.stringify(trans));
+      users = users.filter(user => user.id !== userId);
+      localStorage.setItem('users', JSON.stringify(users));
       populateUsersTable();
     }
 
     function updatePagination() {
-      const totalPages = Math.ceil(trans.length / usersPerPage);
+      const totalPages = Math.ceil(users.length / usersPerPage);
       const paginationElement = document.getElementById('pagination');
       paginationElement.innerHTML = '';
 
@@ -296,10 +296,10 @@
 
     function downloadCSV() {
       const csvRows = [
-        ['ID', 'Name', 'Card_Number', 'Amount', 'Date']
+        ['ID', 'Name', 'Password', 'email']
       ];
       trans.forEach(user => {
-        csvRows.push([user.id, user.name, user.cardno, user.amount, user.date]);
+        csvRows.push([user.id, user.name, user.password, user.email, user.date]);
       });
 
       let csvContent = "data:text/csv;charset=utf-8," + csvRows.map(e => e.join(",")).join("\n");

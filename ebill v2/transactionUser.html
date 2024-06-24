@@ -241,7 +241,7 @@
 
     function handleDeleteUser(event) {
       const userId = event.target.getAttribute('data-id');
-      trans = trans.filter(user => user.id !== userId);
+      trans = trans.filter(user => user.id !== parseInt(userId));
       localStorage.setItem('transaction', JSON.stringify(trans));
       populateUsersTable();
     }

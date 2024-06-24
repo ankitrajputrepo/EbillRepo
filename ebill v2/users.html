@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Starter Page - ClearBill Bootstrap Template</title>
+  <title>ClearBill</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -225,7 +225,7 @@
 
     function handleDeleteUser(event) {
       const userId = event.target.getAttribute('data-id');
-      users = users.filter(user => user.id !== userId);
+      users = users.filter(user => user.id !== parseInt(userId));
       localStorage.setItem('users', JSON.stringify(users));
       populateUsersTable();
     }

@@ -240,6 +240,10 @@
             deleteButtons.forEach(button => {
                 button.addEventListener('click', handleDeleteUser);
             });
+            document.querySelectorAll(".edit-btn").forEach(button => {
+        button.addEventListener("click", handleEdit);
+    });
+
 
             // Update pagination links
             updatePagination();
@@ -322,6 +326,46 @@
                 nextLi.classList.add('disabled');
             }
         }
+        function handleEdit(event) {
+    const button = event.target;
+    const row = button.closest('tr');
+    const cells = row.querySelectorAll('td');
+
+    if (button.textContent === 'Edit') {
+        cells.forEach((cell, index) => {
+            if (index < cells.length - 1) { // Skip the last cell with buttons
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = cell.textContent;
+                cell.textContent = '';
+                cell.appendChild(input);
+            }
+        });
+        button.textContent = 'Save';
+    } else {
+        const userId = button.dataset.id;
+        cells.forEach((cell, index) => {
+            if (index < cells.length - 1) { // Skip the last cell with buttons
+                const input = cell.querySelector('input');
+                cell.textContent = input.value;
+            }
+        });
+        button.textContent = 'Edit';
+
+        // Update user data
+        const userIndex = users.findIndex(user => user.id == userId);
+        users[userIndex].first = cells[1].textContent;
+        users[userIndex].last = cells[2].textContent;
+        users[userIndex].email = cells[3].textContent;
+        users[userIndex].phone = cells[4].textContent;
+        users[userIndex].location = cells[5].textContent;
+        users[userIndex].hobby = cells[6].textContent;
+
+        // Save updated user data to localStorage
+        localStorage.setItem('users', JSON.stringify(users));
+    }
+}
+
 
         function downloadCSV() {
             const csvRows = [

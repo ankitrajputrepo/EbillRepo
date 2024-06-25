@@ -206,19 +206,22 @@
 
 <!-- Custom JavaScript -->
 <script>
-    let trans = JSON.parse(localStorage.getItem('transaction')) || [];
+  // Retrieve transactions from localStorage or initialize to an empty array
+let trans = JSON.parse(localStorage.getItem('transaction')) || [];
+let currentPage = 1;
+const usersPerPage = 5; // Number of users per page
 
-    function populateUsersTable() {
-      const tbody = document.getElementById("userTableBody");
-      tbody.innerHTML = "";
+function populateUsersTable() {
+    const tbody = document.getElementById("userTableBody");
+    tbody.innerHTML = "";
 
-      // Calculate pagination parameters
-      const startIndex = (currentPage - 1) * usersPerPage;
-      const endIndex = startIndex + usersPerPage;
-      const usersToShow = trans.slice(startIndex, endIndex);
+    // Calculate pagination parameters
+    const startIndex = (currentPage - 1) * usersPerPage;
+    const endIndex = startIndex + usersPerPage;
+    const usersToShow = trans.slice(startIndex, endIndex);
 
-      // Populate the table with users for the current page
-      usersToShow.forEach(user => {
+    // Populate the table with users for the current page
+    usersToShow.forEach(user => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td>${user.id}</td>
@@ -232,49 +235,93 @@
           </td>
         `;
         tbody.appendChild(tr);
-      });
+    });
 
-      // Add event listeners for delete buttons
-      const deleteButtons = document.querySelectorAll('.btn-delete');
-      deleteButtons.forEach(button => {
+    // Add event listeners for delete buttons
+    const deleteButtons = document.querySelectorAll('.btn-delete');
+    deleteButtons.forEach(button => {
         button.addEventListener('click', handleDeleteUser);
-      });
+    });
 
-      // Update pagination links
-      updatePagination();
+    // Add event listeners for edit buttons
+    const editButtons = document.querySelectorAll('.btn-edit');
+    editButtons.forEach(button => {
+        button.addEventListener('click', handleEdit);
+    });
+
+    // Update pagination links
+    updatePagination();
+}
+
+function handleDeleteUser(event) {
+    const userId = event.target.getAttribute('data-id');
+    trans = trans.filter(user => user.id !== parseInt(userId));
+    localStorage.setItem('transaction', JSON.stringify(trans));
+    populateUsersTable();
+}
+
+function handleEdit(event) {
+    const button = event.target;
+    const row = button.closest('tr');
+    const cells = row.querySelectorAll('td');
+
+    if (button.textContent === 'Edit') {
+        cells.forEach((cell, index) => {
+            if (index < cells.length - 1) { // Skip the last cell with buttons
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = cell.textContent;
+                cell.textContent = '';
+                cell.appendChild(input);
+            }
+        });
+        button.textContent = 'Save';
+    } else {
+        const userId = button.getAttribute('data-id');
+        cells.forEach((cell, index) => {
+            if (index < cells.length - 1) { // Skip the last cell with buttons
+                const input = cell.querySelector('input');
+                cell.textContent = input.value;
+            }
+        });
+        button.textContent = 'Edit';
+
+        // Update user data
+        const userIndex = trans.findIndex(user => user.id == userId);
+        trans[userIndex].name = cells[1].textContent;
+        trans[userIndex].cardno = cells[2].textContent;
+        trans[userIndex].amount = cells[3].textContent;
+        trans[userIndex].date = cells[4].textContent;
+
+        // Save updated user data to localStorage
+        localStorage.setItem('transaction', JSON.stringify(trans));
     }
+}
 
-    function handleDeleteUser(event) {
-      const userId = event.target.getAttribute('data-id');
-      trans = trans.filter(user => user.id !== parseInt(userId));
-      localStorage.setItem('transaction', JSON.stringify(trans));
-      populateUsersTable();
-    }
+function updatePagination() {
+    const totalPages = Math.ceil(trans.length / usersPerPage);
+    const paginationElement = document.getElementById('pagination');
+    paginationElement.innerHTML = '';
 
-    function updatePagination() {
-      const totalPages = Math.ceil(trans.length / usersPerPage);
-      const paginationElement = document.getElementById('pagination');
-      paginationElement.innerHTML = '';
-
-      // Previous button
-      const previousLi = document.createElement('li');
-      previousLi.className = 'page-item';
-      const previousLink = document.createElement('a');
-      previousLink.className = 'page-link';
-      previousLink.href = '#';
-      previousLink.setAttribute('aria-label', 'Previous');
-      previousLink.innerHTML = '<span aria-hidden="true">&laquo;</span>';
-      previousLink.addEventListener('click', () => {
+    // Previous button
+    const previousLi = document.createElement('li');
+    previousLi.className = 'page-item';
+    const previousLink = document.createElement('a');
+    previousLink.className = 'page-link';
+    previousLink.href = '#';
+    previousLink.setAttribute('aria-label', 'Previous');
+    previousLink.innerHTML = '<span aria-hidden="true">&laquo;</span>';
+    previousLink.addEventListener('click', () => {
         if (currentPage > 1) {
-          currentPage--;
-          populateUsersTable();
+            currentPage--;
+            populateUsersTable();
         }
-      });
-      previousLi.appendChild(previousLink);
-      paginationElement.appendChild(previousLi);
+    });
+    previousLi.appendChild(previousLink);
+    paginationElement.appendChild(previousLi);
 
-      // Page numbers
-      for (let i = 1; i <= totalPages; i++) {
+    // Page numbers
+    for (let i = 1; i <= totalPages; i++) {
         const pageLi = document.createElement('li');
         pageLi.className = 'page-item';
         const pageLink = document.createElement('a');
@@ -282,62 +329,61 @@
         pageLink.href = '#';
         pageLink.textContent = i;
         pageLink.addEventListener('click', () => {
-          currentPage = i;
-          populateUsersTable();
+            currentPage = i;
+            populateUsersTable();
         });
         pageLi.appendChild(pageLink);
         paginationElement.appendChild(pageLi);
-      }
+    }
 
-      // Next button
-      const nextLi = document.createElement('li');
-      nextLi.className = 'page-item';
-      const nextLink = document.createElement('a');
-      nextLink.className = 'page-link';
-      nextLink.href = '#';
-      nextLink.setAttribute('aria-label', 'Next');
-      nextLink.innerHTML = '<span aria-hidden="true">&raquo;</span>';
-      nextLink.addEventListener('click', () => {
+    // Next button
+    const nextLi = document.createElement('li');
+    nextLi.className = 'page-item';
+    const nextLink = document.createElement('a');
+    nextLink.className = 'page-link';
+    nextLink.href = '#';
+    nextLink.setAttribute('aria-label', 'Next');
+    nextLink.innerHTML = '<span aria-hidden="true">&raquo;</span>';
+    nextLink.addEventListener('click', () => {
         if (currentPage < totalPages) {
-          currentPage++;
-          populateUsersTable();
+            currentPage++;
+            populateUsersTable();
         }
-      });
-      nextLi.appendChild(nextLink);
-      paginationElement.appendChild(nextLi);
+    });
+    nextLi.appendChild(nextLink);
+    paginationElement.appendChild(nextLi);
 
-      // Disable previous/next buttons if on first or last page
-      if (currentPage === 1) {
+    // Disable previous/next buttons if on first or last page
+    if (currentPage === 1) {
         previousLi.classList.add('disabled');
-      }
-      if (currentPage === totalPages) {
+    }
+    if (currentPage === totalPages) {
         nextLi.classList.add('disabled');
-      }
     }
+}
 
-    function downloadCSV() {
-      const csvRows = [
+function downloadCSV() {
+    const csvRows = [
         ['ID', 'Name', 'Card_Number', 'Amount', 'Date']
-      ];
-      trans.forEach(user => {
+    ];
+    trans.forEach(user => {
         csvRows.push([user.id, user.name, user.cardno, user.amount, user.date]);
-      });
+    });
 
-      let csvContent = "data:text/csv;charset=utf-8," + csvRows.map(e => e.join(",")).join("\n");
+    let csvContent = "data:text/csv;charset=utf-8," + csvRows.map(e => e.join(",")).join("\n");
 
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", "transaction.csv");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "transaction.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 
-    // Initial population of user table and pagination links
-    let currentPage = 1;
-    const usersPerPage = 5; // Number of users per page
-    populateUsersTable(); // Populate the table initially
+// Initial population of user table and pagination links
+populateUsersTable();
+
   </script>
 </body>
 

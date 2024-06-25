@@ -32,7 +32,7 @@
 <div class="form-group d-flex flex-column">
 <div class="form-group d-flex flex-row justify-content-between">
     <div class="form-group form-check">
-        <input type="radio" class="form-check-input" id="paytotal" name="paymentOption">
+        <input type="radio" class="form-check-input" id="paytotal" name="paymentOption" required>
         <label for="paytotal" class="form-check-label">Pay total balance</label>
       </div>
 
@@ -44,7 +44,7 @@
 
 <div class="d-flex flex-row justify-content-between">
     <div class="form-group form-check">
-        <input type="radio" class="form-check-input" id="payamount" name="paymentOption">
+        <input type="radio" class="form-check-input" id="payamount" name="paymentOption" required>
         <label for="payamount" class="form-check-label">Pay amount</label>
       </div>
 <div>
@@ -68,21 +68,21 @@
 
 <label for="name">Name on card</label>
 <br>
-<input id="name" name="name" type="text" class="form-control">
+<input id="name" name="name" type="text" class="form-control" required>
 <br>
 <label for="name">Card number</label>
 <br>
-<input id="cardno" name="name" type="text" class="form-control">
+<input id="cardno" name="name" type="text" class="form-control" required>
 <div class="d-flex flex-row form-group row">
      <div class="col-md-5">
 
     <label for="name">Expiry date</label><br>
-    <input id="name" name="name" type="text" placeholder="MM/YY" class="form-control">
+    <input id="name" name="name" type="text" placeholder="MM/YY" class="form-control" required>
 </div>
 <div class="mx-3 col-md-5">
     <label for="name">Security code</label>
     <br>
-<input id="name" name="name" type="text" placeholder="3 to 4 digits" class="form-control">
+<input id="name" name="name" type="text" placeholder="3 to 4 digits" class="form-control" required>
 </div>
 
 
@@ -96,7 +96,7 @@
 </div>
 </div>
 <div class="form-check form-group">
-    <input type="checkbox" id="savecard" name="savecard" class="form-check-input">
+    <input type="checkbox" id="savecard" name="savecard" class="form-check-input" >
     <label for="savecard" class="form-check-label"><h5>Set up Auto Payments</h5><p>The safe,convenient and on-time way to make all your future payments.Opt in today knowing you can change it at any time.</p></label>
     </div>
     <div class="form-group">

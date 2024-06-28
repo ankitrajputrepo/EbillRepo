@@ -5,211 +5,219 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Electricity Connection Registration</title>
   <!-- Bootstrap CSS -->
-
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <!-- Custom CSS -->
   <style>
-   .card-registration .select-input.form-control[readonly]:not([disabled]) {
-font-size: 0rem;
-line-height: 2.15;
-padding-left: .75em;
-padding-right: .75em;
-}
-.card-registration .select-arrow {
-top: 13px;
-}
-section{
-  background-image: url(background.jpg);
-}
-
-
-
+    .card-registration .select-input.form-control[readonly]:not([disabled]) {
+      font-size: 0rem;
+      line-height: 2.15;
+      padding-left: .75em;
+      padding-right: .75em;
+    }
+    .card-registration .select-arrow {
+      top: 13px;
+    }
+    section {
+      background-image: url(background.jpg);
+    }
+    .error-message {
+      color: red;
+      font-size: 0.875em;
+    }
   </style>
 </head>
 <body>
-    <section class="h-100" >
-        <div class="container py-5 h-100 ">
-          <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col">
-              <div class="card card-registration my-4" style="box-sizing: border-box; width: 100%; ">
-                <div class="row g-0">
-                  <div class="col-xl-6 d-none d-xl-block">
-                    <img src="bulb.jpg"
-                      alt="Sample photo" class="img-fluid"
-                      style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;height: 100%;" />
-                  </div>
-                  <div class="col-xl-6">
-                    <div class="card-body p-md-5 text-black">
-                     <form class="form" id="newconnection">
-                     
-                        <h3 class="mb-5 text-uppercase">New connection registration form</h3>
-      
-                      <div class="row">
-                        <div class="col-md-6 mb-4">
-                          <div data-mdb-input-init class="form-outline">
-                            <input type="text" id="first" class="form-control form-control-lg" required/>
-                            <label class="form-label" for="first">First name</label>
-                          </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                          <div data-mdb-input-init class="form-outline">
-                            <input type="text" id="last" class="form-control form-control-lg" required/>
-                            <label class="form-label" for="last">Last name</label>
-                          </div>
+  <section class="h-100">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col">
+          <div class="card card-registration my-4" style="box-sizing: border-box; width: 100%;">
+            <div class="row g-0">
+              <div class="col-xl-6 d-none d-xl-block">
+                <img src="bulb.jpg" alt="Sample photo" class="img-fluid" style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem; height: 100%;" />
+              </div>
+              <div class="col-xl-6">
+                <div class="card-body p-md-5 text-black">
+                  <form class="form" id="newconnection">
+                    <h3 class="mb-5 text-uppercase">New connection registration form</h3>
+                    <div class="row">
+                      <div class="col-md-6 mb-4">
+                        <div data-mdb-input-init class="form-outline">
+                          <input type="text" id="first" class="form-control form-control-lg" required pattern="[A-Za-z]+" title="First name should contain only letters." />
+                          <label class="form-label" for="first">First name</label>
+                          <span class="error-message" id="first-error"></span>
                         </div>
                       </div>
-      
-                      <div class="row">
-                        <div class="col-md-6 mb-4">
-                          <div data-mdb-input-init class="form-outline">
-                            <input type="text" id="mother" class="form-control form-control-lg" required/>
-                            <label class="form-label" for="mother">Mother's name</label>
-                          </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                          <div data-mdb-input-init class="form-outline">
-                            <input type="text" id="father" class="form-control form-control-lg" required/>
-                            <label class="form-label" for="father">Father's name</label>
-                          </div>
+                      <div class="col-md-6 mb-4">
+                        <div data-mdb-input-init class="form-outline">
+                          <input type="text" id="last" class="form-control form-control-lg" required pattern="[A-Za-z]+" title="Last name should contain only letters." />
+                          <label class="form-label" for="last">Last name</label>
+                          <span class="error-message" id="last-error"></span>
                         </div>
                       </div>
-      
-                      <div data-mdb-input-init class="form-outline mb-4">
-                        <input type="text" id="address" class="form-control form-control-lg" required/>
-                        <label class="form-label" for="address">Address</label>
-                      </div>
-      
-                      <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
-      
-                        <h6 class="mb-0 me-4 p-2">Gender: </h6>
-                        
-      
-                        <div class="form-check form-check-inline mb-0 me-4">
-                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="gender"
-                            value="Female" />
-                          <label class="form-check-label" for="gender">Female</label>
-                        </div>
-      
-                        <div class="form-check form-check-inline mb-0 me-4">
-                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="gender"
-                            value="Male" />
-                          <label class="form-check-label" for="gender">Male</label>
-                        </div>
-      
-                        <div class="form-check form-check-inline mb-0">
-                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="gender"
-                            value="Other" />
-                          <label class="form-check-label" for="gender">Other</label>
-                        </div>
-      
-                      </div>
-      
-                      <div class="row" >
-                        <div class="col-md-6 mb-4">
-      
-                          <select data-mdb-select-init class="rounded  " style="width: 70%; height: 40px; padding-left: 10px;" required>
-                            <option value="1">State</option>
-                            <option value="2">Maharastra</option>
-                            <option value="3">Delhi</option>
-                            <option value="4">Bihar</option>
-                          </select>
-      
-                        </div>
-                        <div class="col-md-6 mb-4">
-      
-                          <select data-mdb-select-init class="rounded" style="width: 70%; height: 40px; padding-left: 10px;" required>
-                            <option value="1">City</option>
-                            <option value="2">Pune</option>
-                            <option value="3">Delhi</option>
-                            <option value="4">Jaipur</option>
-                          </select>
-      
-                        </div>
-                      </div>
-      
-                      <div data-mdb-input-init class="form-outline mb-4">
-                        <input type="date" id="dob" class="form-control form-control-lg" required/>
-                        <label class="form-label" for="dob">DOB</label>
-                      </div>
-      
-                      <div data-mdb-input-init class="form-outline mb-4">
-                        <input type="number" id="pincode" class="form-control form-control-lg" required/>
-                        <label class="form-label" for="pincode">Pincode</label>
-                      </div>
-      
-                      <div data-mdb-input-init class="form-outline mb-4">
-                        <input type="tel" id="number" class="form-control form-control-lg" required/>
-                        <label class="form-label" for="number">Mobile No.</label>
-                      </div>
-      
-                      <div data-mdb-input-init class="form-outline mb-4">
-                        <input type="email" id="email" class="form-control form-control-lg" required/>
-                        <label class="form-label" for="email">Email ID</label>
-                      </div>
-      
-                      <div class="d-flex justify-content-end pt-3">
-                        <button  type="reset" data-mdb-button-init data-mdb-ripple-init class="btn btn-light btn-lg" style="margin-right: 10px;">Reset all</button>
-                        <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-warning btn-lg ms-2">Submit form</button>
-                      </div>
-                      </form>
-      
                     </div>
-                  </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-4">
+                        <div data-mdb-input-init class="form-outline">
+                          <input type="text" id="mother" class="form-control form-control-lg" required pattern="[A-Za-z]+" title="Mother's name should contain only letters." />
+                          <label class="form-label" for="mother">Mother's name</label>
+                          <span class="error-message" id="mother-error"></span>
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-4">
+                        <div data-mdb-input-init class="form-outline">
+                          <input type="text" id="father" class="form-control form-control-lg" required pattern="[A-Za-z]+" title="Father's name should contain only letters." />
+                          <label class="form-label" for="father">Father's name</label>
+                          <span class="error-message" id="father-error"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div data-mdb-input-init class="form-outline mb-4">
+                      <input type="text" id="address" class="form-control form-control-lg" required />
+                      <label class="form-label" for="address">Address</label>
+                      <span class="error-message" id="address-error"></span>
+                    </div>
+                    <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+                      <h6 class="mb-0 me-4 p-2">Gender: </h6>
+                      <div class="form-check form-check-inline mb-0 me-4">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="female" value="Female" required />
+                        <label class="form-check-label" for="female">Female</label>
+                      </div>
+                      <div class="form-check form-check-inline mb-0 me-4">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="male" value="Male" required />
+                        <label class="form-check-label" for="male">Male</label>
+                      </div>
+                      <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="other" value="Other" required />
+                        <label class="form-check-label" for="other">Other</label>
+                      </div>
+                      <span class="error-message" id="gender-error"></span>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-4">
+                        <select id="state" class="form-select" required>
+                          <option value="">State</option>
+                          <option value="Maharastra">Maharastra</option>
+                          <option value="Delhi">Delhi</option>
+                          <option value="Bihar">Bihar</option>
+                        </select>
+                        <span class="error-message" id="state-error"></span>
+                      </div>
+                      <div class="col-md-6 mb-4">
+                        <select id="city" class="form-select" required>
+                          <option value="">City</option>
+                          <option value="Pune">Pune</option>
+                          <option value="Delhi">Delhi</option>
+                          <option value="Jaipur">Jaipur</option>
+                        </select>
+                        <span class="error-message" id="city-error"></span>
+                      </div>
+                    </div>
+                    <div data-mdb-input-init class="form-outline mb-4">
+                      <input type="date" id="dob" class="form-control form-control-lg" required />
+                      <label class="form-label" for="dob">DOB</label>
+                      <span class="error-message" id="dob-error"></span>
+                    </div>
+                    <div data-mdb-input-init class="form-outline mb-4">
+                      <input type="number" id="pincode" class="form-control form-control-lg" required pattern="\d{6}" title="Pincode should be 6 digits." />
+                      <label class="form-label" for="pincode">Pincode</label>
+                      <span class="error-message" id="pincode-error"></span>
+                    </div>
+                    <div data-mdb-input-init class="form-outline mb-4">
+                      <input type="tel" id="number" class="form-control form-control-lg" required pattern="[0-9]{10}" title="Mobile number should be 10 digits." />
+                      <label class="form-label" for="number">Mobile No.</label>
+                      <span class="error-message" id="number-error"></span>
+                    </div>
+                    <div data-mdb-input-init class="form-outline mb-4">
+                      <input type="email" id="email" class="form-control form-control-lg" required />
+                      <label class="form-label" for="email">Email ID</label>
+                      <span class="error-message" id="email-error"></span>
+                    </div>
+                    <div class="d-flex justify-content-end pt-3">
+                      <button type="reset" data-mdb-button-init data-mdb-ripple-init class="btn btn-light btn-lg" style="margin-right: 10px;">Reset all</button>
+                      <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-warning btn-lg ms-2">Submit form</button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
   <!-- Bootstrap JS and dependencies -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
   <script>
-
     document.getElementById('newconnection').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const first = document.getElementById('first').value;
-              
-            
-                const last = document.getElementById('last').value;
-               
-                const address = document.getElementById('address').value;
-                
-                const gender= document.getElementById('gender').value;
-                const dob= document.getElementById('dob').value;
-                const number= document.getElementById('number').value;
-                const email= document.getElementById('email').value;
-                const pincode= document.getElementById('pincode').value;
+      e.preventDefault();
+      let isValid = true;
 
-                 const date=new Date();
-    
-    
-    
-    
-    
-    
-    
-                const connection = JSON.parse(localStorage.getItem('connection')) || [];
-                connection.push({ id: connection.length+1, first,last,address,gender,dob,number,email,pincode,date});
-                localStorage.setItem('connection', JSON.stringify(connection));
-                alert('New Connection successful!');
-             
-            });
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-      </script>
-      </body>
+      // Clear previous error messages
+      document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+
+      // Form fields
+      const first = document.getElementById('first').value;
+      const last = document.getElementById('last').value;
+      const address = document.getElementById('address').value;
+      const gender = document.querySelector('input[name="inlineRadioOptions"]:checked');
+      const dob = document.getElementById('dob').value;
+      const number = document.getElementById('number').value;
+      const email = document.getElementById('email').value;
+      const pincode = document.getElementById('pincode').value;
+      const state = document.getElementById('state').value;
+      const city = document.getElementById('city').value;
+
+      // Additional validation logic
+      if (!/^[A-Za-z]+$/.test(first)) {
+        document.getElementById('first-error').textContent = 'First name should contain only letters.';
+        isValid = false;
+      }
+      if (!/^[A-Za-z]+$/.test(last)) {
+        document.getElementById('last-error').textContent = 'Last name should contain only letters.';
+        isValid = false;
+      }
+      if (!/^[A-Za-z]+$/.test(document.getElementById('mother').value)) {
+        document.getElementById('mother-error').textContent = 'Mother\'s name should contain only letters.';
+        isValid = false;
+      }
+      if (!/^[A-Za-z]+$/.test(document.getElementById('father').value)) {
+        document.getElementById('father-error').textContent = 'Father\'s name should contain only letters.';
+        isValid = false;
+      }
+      if (!/^\d{6}$/.test(pincode)) {
+        document.getElementById('pincode-error').textContent = 'Pincode should be 6 digits.';
+        isValid = false;
+      }
+      if (!/^\d{10}$/.test(number)) {
+        document.getElementById('number-error').textContent = 'Mobile number should be 10 digits.';
+        isValid = false;
+      }
+      if (!gender) {
+        document.getElementById('gender-error').textContent = 'Please select a gender.';
+        isValid = false;
+      }
+      if (!state) {
+        document.getElementById('state-error').textContent = 'Please select a state.';
+        isValid = false;
+      }
+      if (!city) {
+        document.getElementById('city-error').textContent = 'Please select a city.';
+        isValid = false;
+      }
+
+      if (isValid) {
+        // Save to localStorage
+        const connection = JSON.parse(localStorage.getItem('connection')) || [];
+        connection.push({ id: connection.length + 1, first, last, address, gender: gender.value, dob, number, email, pincode, state, city });
+        localStorage.setItem('connection', JSON.stringify(connection));
+        alert('New Connection successful!');
+        document.getElementById('newconnection').reset();
+      }
+    });
+  </script>
+</body>
 </html>
